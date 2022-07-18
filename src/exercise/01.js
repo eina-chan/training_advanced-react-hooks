@@ -4,7 +4,7 @@
 import * as React from 'react'
 
 function countReducer(state, newState) {
-  return {...newState};
+  return {...state, ...newState}; // need to spread prev state as well so that unchanged key/values not lost
 };
 
 function Counter({initialCount = 0, step = 1}) {
