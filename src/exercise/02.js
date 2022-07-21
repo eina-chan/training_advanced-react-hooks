@@ -49,27 +49,22 @@ function useAsync(asyncCallback, initialState) {
         dispatch({type: 'rejected', error})
       },
     )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, asyncCallback)
+  }, [asyncCallback])
 
   return state
 }
 
 function PokemonInfo({pokemonName}) {
-  const state = useAsync(
-    React.useCallback(
-      asyncCallback => {
-        if (!pokemonName) {
-          return
-        }
-        return fetchPokemon(pokemonName)
-      },
-      [pokemonName],
-    ),
-    {
-      status: pokemonName ? 'pending' : 'idle',
-    },
-  )
+  const asyncCallback = React.useCallback(() => {
+    if (!pokemonName) {
+      return
+    }
+    return fetchPokemon(pokemonName)
+  }, [pokemonName]) //don't forget the dependency
+
+  const state = useAsync(asyncCallback, {
+    status: pokemonName ? 'pending' : 'idle',
+  })
   const {data: pokemon, status, error} = state
 
   switch (status) {
