@@ -3,6 +3,11 @@
 
 import * as React from 'react'
 
+const useCount = () => {
+  const [count, setCount] = React.useState(0)
+  return [count, setCount]
+}
+
 // 🐨 create your CountContext here with React.createContext
 const Context = React.createContext()
 // 🐨 create a CountProvider component here that does this:
@@ -11,7 +16,7 @@ const Context = React.createContext()
 //   🐨 return your context provider with the value assigned to that array and forward all the other props
 //   💰 more specifically, we need the children prop forwarded to the context provider
 function CountProvider(props) {
-  const [count, setCount] = React.useState(0)
+  const [count, setCount] = useCount()
   const value = [count, setCount]
   return <Context.Provider value={value} {...props} />
 }
@@ -32,10 +37,10 @@ function Counter() {
 function App() {
   return (
     <div>
-      <CountProvider>
-        <CountDisplay />
-        <Counter />
-      </CountProvider>
+      {/* <CountProvider> */}
+      <CountDisplay />
+      <Counter />
+      {/* </CountProvider> */}
     </div>
   )
 }
