@@ -3,19 +3,16 @@
 
 import * as React from 'react'
 
-// 🐨 create your CountContext here with React.createContext
+//#region Can be moved to separate module for reuse
 const Context = React.createContext()
-// 🐨 create a CountProvider component here that does this:
-//   🐨 get the count state and setCount updater with React.useState
-//   🐨 create a `value` array with count and setCount
-//   🐨 return your context provider with the value assigned to that array and forward all the other props
-//   💰 more specifically, we need the children prop forwarded to the context provider
+
 function CountProvider(props) {
   const [count, setCount] = React.useState(0)
   const value = [count, setCount]
   return <Context.Provider value={value} {...props} />
 }
 
+// Custom Hook
 const useCount = () => {
   const context = React.useContext(Context)
   if (!context) {
@@ -23,6 +20,7 @@ const useCount = () => {
   }
   return context
 }
+//#endregion
 
 function CountDisplay() {
   // 🐨 get the count from useContext with the CountContext
