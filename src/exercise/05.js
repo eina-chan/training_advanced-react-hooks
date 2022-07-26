@@ -24,12 +24,10 @@ const MessagesDisplay = React.forwardRef(function MessagesDisplay(
   // 🐨 call useImperativeHandle here with your ref and a callback function
   // that returns an object with scrollToTop and scrollToBottom
 
-  React.useImperativeHandle(ref, () => {
-    return {
-      scrollToTop: () => scrollToTop(),
-      scrollToBottom: () => scrollToBottom(),
-    }
-  })
+  React.useImperativeHandle(ref, () => ({
+    scrollToTop,
+    scrollToBottom,
+  }))
 
   return (
     <div ref={containerRef} role="log">
